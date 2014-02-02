@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.ionicframework.<%= app.nameSlug  %>" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name><%= app.name %></name>
+    <description>
+        <%= app.desc %>
+    </description>
+    <author email="<%= app.email %>" href="<%= app.www %>">
+        <%= app.user %>
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="fullscreen" value="<%= _.contains(cordova.preferences, 'fullscreen') %>" />
+    <preference name="webviewbounce" value="<%= _.contains(cordova.preferences, 'webviewbounce') %>" />
+    <preference name="UIWebViewBounce" value="<%= _.contains(cordova.preferences, 'UIWebViewBounce') %>" />
+    <preference name="DisallowOverscroll" value="<%= _.contains(cordova.preferences, 'DisallowOverscroll') %>" />
+</widget>
