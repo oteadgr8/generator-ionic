@@ -1,4 +1,4 @@
-# generator-ionic [![Build Status](https://secure.travis-ci.org/cypherq/generator-ionic.png?branch=master)](https://travis-ci.org/cypherq/generator-ionic)
+# generator-ionic [![Build Status](https://travis-ci.org/moblr/generator-ionic.png?branch=master)](https://travis-ci.org/moblr/generator-ionic)
 
 A generator for [Yeoman](http://yeoman.io).
 
