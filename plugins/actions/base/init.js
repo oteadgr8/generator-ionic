@@ -4,55 +4,30 @@ var path = require('path');
 var prompts = require('./prompts');
 var myUtils = require('../../../util');
 
+var baseUrl = 'org.apache.cordova.%s';
+
 module.exports = function() {
 
-    myUtils.success('Application details:');
+    var cb = this.async();
 
-    this.prompt(prompts.cordova, function (props) {
+    myUtils.success('Enable plugins:');
 
-        this.cordova = props;
+    this.prompt(prompts, function (props) {
 
-        myUtils.success('Scaffold options:');
+        var plugins = props.plugins;
 
-        this.prompt(prompts.miscs, function (props) {
+        for(var i = 0, l = props.plugins.length; i < l; i++) {
+            plugins[i] = baseUrl.replace('%s', myUtils.pluginize(plugins[i]));
+        }
 
-            this.miscs = props;
+        this.spawnCommand('cordova', ['plugin', 'add'].concat(plugins), function(code){
 
-            utils.say('Generating Cordova project...');
+            if(code !== 0) {
+                myUtils.error('Cannot run `cordova plugin add ' + plugins.join(' ') + '`. Check messages above.');
+            }
 
-            /* create Cordova project */
-            var spawnCordovaProjectArgs = ['create', this.app.nameSlug, this.app.nameDomain, this.app.nameCamel];
-
-            spawn('cordova', spawnCordovaProjectArgs).on('close', function(code) {
-
-                /* something goes wrong, give up */
-                if(code !== 0) {
-                    utils.say('`cordova ' + spawnCordovaProjectArgs.join(' ') + '` failed. Try to run by yourself.', 'red');
-                    cb();
-                    return;
-                }
-
-                /* change current working directory */
-                process.chdir(this.app.nameSlug);
-
-                /* remove Cordova config */
-
-
-                /* and put better one inside `www` directory */
-                this.template('_config.xml', path.join('www', 'config.xml'));
-
-                /* add platforms to project */
-                spawn('cordova', ['platform', 'add'].concat(this.cordova.platforms)).on('close', function(){
-
-                    /* add plugins */
-                    cb();
-                }.bind(this));
-
-            }.bind(this));
-
-
-
-        }.bind(this));
+            cb();
+        });
 
     }.bind(this));
 };

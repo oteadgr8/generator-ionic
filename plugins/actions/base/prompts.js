@@ -8,11 +8,11 @@ module.exports = (function () {
             message: 'Plugins to use:',
             choices: [
                 {
-                    name: "Device (Basic device information)",
+                    name: "Device",
                     checked: false
                 },
                 {
-                    name: "Network connection",
+                    name: "Network information",
                     checked: false
                 },
                 {
@@ -20,11 +20,11 @@ module.exports = (function () {
                     checked: false
                 },
                 {
-                    name: "Accelerometer",
+                    name: "Device motion",
                     checked: false
                 },
                 {
-                    name: "Compass",
+                    name: "Device orientation",
                     checked: false
                 },
                 {
@@ -36,19 +36,27 @@ module.exports = (function () {
                     checked: false
                 },
                 {
+                    name: "Media capture",
+                    checked: false
+                },
+                {
                     name: "Media",
                     checked: false
                 },
                 {
-                    name: "Capture",
+                    name: "File",
                     checked: false
                 },
                 {
-                    name: "File API",
+                    name: "File transfer",
                     checked: false
                 },
                 {
-                    name: "Notifications (via dialog box or vibration)",
+                    name: "Dialogs",
+                    checked: false
+                },
+                {
+                    name: "Vibration",
                     checked: false
                 },
                 {
@@ -64,11 +72,11 @@ module.exports = (function () {
                     checked: false
                 },
                 {
-                    name: "InAppBrowser (Open new browser windows)",
+                    name: "InAppBrowser",
                     checked: false
                 },
                 {
-                    name: "Debug console",
+                    name: "Console",
                     checked: false
                 }
             ]

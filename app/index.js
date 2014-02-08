@@ -10,20 +10,27 @@ var actionBase = require('./actions/base/init');
 var IonicGenerator = module.exports = function IonicGenerator(args, options, config) {
     yeoman.generators.Base.apply(this, arguments);
 
+    var afterInstallDependencies = function () {
+
+        /* change current working directory */
+        process.chdir(this.app.nameSlug);
+
+        this.invoke('ionic:platforms', {options: {}}, function () {
+
+            this.invoke('ionic:plugins', {options: {}}, function () {
+
+                this.invoke('ionic:config', {options: {}});
+
+            }.bind(this));
+
+        }.bind(this));
+
+    }.bind(this)
+
     this.on('end', function () {
         this.installDependencies({
             skipInstall: options['skip-install'],
-            callback: function () {
-
-                /* change current working directory */
-                process.chdir(this.app.nameSlug);
-
-                this.invoke('ionic:platforms', {options: {}}, function () {
-                    //        this.invoke('ionic:plugins', {options: {}});
-                    //        this.invoke('ionic:config', {options: {}});
-                });
-
-            }.bind(this)
+            callback: afterInstallDependencies
         });
     });
 
