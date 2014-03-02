@@ -1,58 +1,42 @@
-var spawn = require('child_process').spawn;
 var path = require('path');
+var fs = require('fs');
 
 var prompts = require('./prompts');
 var myUtils = require('../../../util');
 
-module.exports = function() {
+module.exports = function () {
 
-    myUtils.success('Application details:');
+    var cb = this.async();
 
-    this.prompt(prompts.cordova, function (props) {
+    var setConfig = function() {
 
-        this.cordova = props;
+        /* and put better one inside `www` directory */
+        this.template('_config.xml', path.join('www', 'config.xml'));
 
-        myUtils.success('Scaffold options:');
+        cb();
+    };
 
-        this.prompt(prompts.miscs, function (props) {
+    myUtils.success('Set config options:');
 
-            this.miscs = props;
+    this.prompt(prompts, function (props) {
 
-            utils.say('Generating Cordova project...');
+        this.preferences = props.preferences;
 
-            /* create Cordova project */
-            var spawnCordovaProjectArgs = ['create', this.app.nameSlug, this.app.nameDomain, this.app.nameCamel];
+        if(fs.existsSync('config.xml')) {
 
-            spawn('cordova', spawnCordovaProjectArgs).on('close', function(code) {
-
-                /* something goes wrong, give up */
-                if(code !== 0) {
-                    utils.say('`cordova ' + spawnCordovaProjectArgs.join(' ') + '` failed. Try to run by yourself.', 'red');
-                    cb();
-                    return;
+            /* remove Cordova config */
+            fs.unlink('config.xml', function(err){
+                if(err) {
+                    error('`rm config.xml` failed with code ' + errr.errno + '. Try to run it later.', 'red');
                 }
-
-                /* change current working directory */
-                process.chdir(this.app.nameSlug);
-
-                /* remove Cordova config */
-
-
-                /* and put better one inside `www` directory */
-                this.template('_config.xml', path.join('www', 'config.xml'));
-
-                /* add platforms to project */
-                spawn('cordova', ['platform', 'add'].concat(this.cordova.platforms)).on('close', function(){
-
-                    /* add plugins */
-                    cb();
-                }.bind(this));
-
+                else {
+                    setConfig.call(this);
+                }
             }.bind(this));
-
-
-
-        }.bind(this));
+        }
+        else {
+            setConfig.call(this);
+        }
 
     }.bind(this));
 };

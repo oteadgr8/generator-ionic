@@ -18,17 +18,15 @@ var error = function(message) {
     return message;
 };
 
+var pluginize = function(str) {
+    return str.toLowerCase().replace(/ /, '-');
+}
+
 module.exports = (function(){
     return {
         success: success,
         error: error,
 
-        remove : function(path) {
-            fs.unlink(path, function(err){
-                if(err) {
-                    error('`rm config.xml` failed with code ' + errr.errno + '. Try to run it later.', 'red');
-                }
-            });
-        }
+        pluginize : pluginize
     };
 })();
