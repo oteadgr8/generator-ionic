@@ -9,8 +9,8 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <preference name="fullscreen" value="<%= _.contains(cordova.preferences, 'fullscreen') %>" />
-    <preference name="webviewbounce" value="<%= _.contains(cordova.preferences, 'webviewbounce') %>" />
-    <preference name="UIWebViewBounce" value="<%= _.contains(cordova.preferences, 'UIWebViewBounce') %>" />
-    <preference name="DisallowOverscroll" value="<%= _.contains(cordova.preferences, 'DisallowOverscroll') %>" />
+    <preference name="fullscreen" value="<%= _.contains(preferences, 'fullscreen') %>" />
+    <preference name="webviewbounce" value="<%= _.contains(preferences, 'webviewbounce') %>" />
+    <preference name="UIWebViewBounce" value="<%= _.contains(preferences, 'UIWebViewBounce') %>" />
+    <preference name="DisallowOverscroll" value="<%= _.contains(preferences, 'DisallowOverscroll') %>" />
 </widget>

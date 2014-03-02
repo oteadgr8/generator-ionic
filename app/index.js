@@ -19,7 +19,7 @@ var IonicGenerator = module.exports = function IonicGenerator(args, options, con
 
             this.invoke('ionic:plugins', {options: {}}, function () {
 
-                this.invoke('ionic:config', {options: {}});
+                this.invoke('ionic:config', {options: { app : this.app }});
 
             }.bind(this));
 
