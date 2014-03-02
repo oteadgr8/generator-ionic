@@ -7,11 +7,11 @@ var myUtils = require('../../../util');
 module.exports = function () {
 
     var cb = this.async();
+    var configPath = path.join('www', 'config.xml');
 
     var setConfig = function() {
 
-        /* and put better one inside `www` directory */
-        this.template('_config.xml', path.join('www', 'config.xml'));
+        this.template('_config.xml', configPath);
 
         cb();
     };
@@ -22,10 +22,10 @@ module.exports = function () {
 
         this.preferences = props.preferences;
 
-        if(fs.existsSync('config.xml')) {
+        if(fs.existsSync(configPath)) {
 
-            /* remove Cordova config */
-            fs.unlink('config.xml', function(err){
+            /* remove Cordova config and replace with more personalised */
+            fs.unlink(configPath, function(err){
                 if(err) {
                     error('`rm config.xml` failed with code ' + errr.errno + '. Try to run it later.', 'red');
                 }

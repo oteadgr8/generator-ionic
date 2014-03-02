@@ -9,7 +9,7 @@ var baseUrl = 'org.apache.cordova.%s';
 module.exports = function() {
 
     var cb = this.async();
-console.log(this.app);
+
     myUtils.success('Enable plugins:');
 
     this.prompt(prompts, function (props) {

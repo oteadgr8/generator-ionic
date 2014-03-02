@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.<%= app.nameSlug  %>" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name><%= app.name %></name>
+<widget id="com.ionicframework.<%= options.app.nameSlug  %>" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name><%= options.app.name %></name>
     <description>
-        <%= app.desc %>
+        <%= options.app.desc %>
     </description>
-    <author email="<%= app.email %>" href="<%= app.www %>">
-        <%= app.user %>
+    <author email="<%= options.app.email %>" href="<%= options.app.www %>">
+        <%= options.app.user %>
     </author>
     <content src="index.html" />
     <access origin="*" />
