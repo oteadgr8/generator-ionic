@@ -5,7 +5,8 @@ var xml2js = require('xml2js');
 var prompts = require('./prompts');
 var myUtils = require('../../../util');
 
-var configPath = path.join('www', 'config.xml');
+var originalConfigPath = 'config.xml';
+var expectedConfigPath = path.join('www', originalConfigPath);
 
 var resolveAppObject = function(data) {
 
@@ -26,14 +27,14 @@ var resolveAppObject = function(data) {
 var setAppDetails = function() {
     var parser = new xml2js.Parser();
 
-    parser.parseString(fs.readFileSync(configPath), function (err, result) {
+    parser.parseString(fs.readFileSync(expectedConfigPath), function (err, result) {
         this.options.app = resolveAppObject.call(this, result);
     }.bind(this));
 };
 
 var setConfig = function(cb) {
 
-    this.template('_config.xml', configPath);
+    this.template('_config.xml', expectedConfigPath);
 
     cb();
 };
@@ -47,7 +48,7 @@ module.exports = function () {
 
         myUtils.success('Retrieving application data from existing config...');
 
-         setAppDetails.call(this);
+        setAppDetails.call(this);
     }
 
     myUtils.success('Set config options:');
@@ -56,11 +57,14 @@ module.exports = function () {
 
         this.preferences = props.preferences;
 
+        var currentConfigPath = (fs.existsSync(originalConfigPath)) ? originalConfigPath : expectedConfigPath;
+
         /* make sure that we are removing previous config only if exists */
-        if(fs.existsSync(configPath)) {
+//        if(fs.existsSync(originalConfigPath)) {
 
             /* remove Cordova config and replace with more personalized */
-            fs.unlink(configPath, function(err){
+//            fs.unlink(originalConfigPath, function(err){
+            fs.unlink(currentConfigPath, function(err){
                 if(err) {
                     error('`rm config.xml` failed with code ' + errr.errno + '. Try to run it later.', 'red');
                 }
@@ -68,11 +72,7 @@ module.exports = function () {
                     setConfig.call(this, cb);
                 }
             }.bind(this));
-        }
-        else {
-            /* set our personalized config */
-            setConfig.call(this, cb);
-        }
+//        }
 
     }.bind(this));
 };

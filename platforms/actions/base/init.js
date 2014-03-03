@@ -62,16 +62,23 @@ module.exports = function () {
 
             this.platforms = props.platforms;
 
-            /* add platforms to project */
-            spawn('cordova', ['platform', 'add'].concat(this.platforms)).on('close', function (code) {
+            /* add platforms to project if there is any to add */
+            if(this.platforms.length > 0) {
 
-                if(code !== 0) {
-                    myUtils.error('`cordova platform add ' + this.platforms.join(' ') + '` failed. Check message above.')
-                }
+                spawn('cordova', ['platform', 'add'].concat(this.platforms)).on('close', function (code) {
 
+                    if(code !== 0) {
+                        myUtils.error('`cordova platform add ' + this.platforms.join(' ') + '` failed. Check message above.')
+                    }
+
+                    cb();
+
+                }.bind(this));
+            }
+            else {
+                /* just return flow control */
                 cb();
-
-            }.bind(this));
+            }
 
         }.bind(this));
 
