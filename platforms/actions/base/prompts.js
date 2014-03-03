@@ -5,17 +5,8 @@ module.exports = (function () {
         {
             type: 'checkbox',
             name: 'platforms',
-            message: 'Target platforms:',
-            choices: [
-                {
-                    name: "android",
-                    checked: true
-                },
-                {
-                    name: "ios",
-                    checked: true
-                }
-            ]
+            message: 'Target platforms (checked by default are compatible with Ionic Framework):',
+            choices: null
         }
     ];
 
