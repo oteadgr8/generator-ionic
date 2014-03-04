@@ -12,9 +12,6 @@ var IonicGenerator = module.exports = function IonicGenerator(args, options, con
 
     var afterInstallDependencies = function () {
 
-        /* change current working directory */
-        process.chdir(this.app.nameSlug);
-
         this.invoke('ionic:platforms', {options: {}}, function () {
 
             this.invoke('ionic:plugins', {options: {}}, function () {

@@ -60,19 +60,14 @@ module.exports = function () {
         var currentConfigPath = (fs.existsSync(originalConfigPath)) ? originalConfigPath : expectedConfigPath;
 
         /* make sure that we are removing previous config only if exists */
-//        if(fs.existsSync(originalConfigPath)) {
-
-            /* remove Cordova config and replace with more personalized */
-//            fs.unlink(originalConfigPath, function(err){
-            fs.unlink(currentConfigPath, function(err){
-                if(err) {
-                    error('`rm config.xml` failed with code ' + errr.errno + '. Try to run it later.', 'red');
-                }
-                else {
-                    setConfig.call(this, cb);
-                }
-            }.bind(this));
-//        }
+        fs.unlink(currentConfigPath, function(err){
+            if(err) {
+                error('`rm config.xml` failed with code ' + errr.errno + '. Try to run it later.', 'red');
+            }
+            else {
+                setConfig.call(this, cb);
+            }
+        }.bind(this));
 
     }.bind(this));
 };
